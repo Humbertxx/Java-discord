@@ -36,6 +36,8 @@ public class quotes {
             List<Map<String, Object>> list = mapper.readValue(body, new TypeReference<List<Map<String, Object>>>(){});
 
             // First element of the array
+            // this is going to be pass on to discord before any call to keep morale up
+            // TO DO: Send to Discord
             Map<String, Object> first = list.get(0);
 
             Object quote = first.get("quotes");
