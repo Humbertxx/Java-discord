@@ -54,20 +54,25 @@ def plot_compare_ticker(df, ticker_names : list, factor_size=None, volume=False)
         ap = mpf.make_addplot(series, panel=0, secondary_y=False, label=t)
         addplots.append(ap)
 
-    fig, axes = mpf.plot(base_df, type="line", addplot=addplots, style='yahoo', volume=volume, title=f"{', '.join(ticker_names)} line Chart", 
-                        ylabel = "Price ($US) Index (100 = first close)", xlabel = "Date", returnfig=True)
+    fig, axes = mpf.plot(base_df, type="line", addplot=addplots, style = 'yahoo', volume=volume, title = f"{', '.join(ticker_names)} line Chart", 
+                        ylabel = "Price ($US) Index (100 = first close)", xlabel = "Date", returnfig = True)
     
     ax = axes[0] if isinstance(axes, list) else axes
     ax.lines[0].set_label(base)
     ax.legend()
     
     mpf.show()
+    
 # TO DO: Portfolio logic store in Java
 def plot_portfolio(df, show_type : str = "candle"):
     mpf.plot(df, type=show_type, style='yahoo', title=f' {show_type} Chart')
     
+# print type selected of plot, only one stock
 def plot_ticker(df, ticker_name : str, show_type : str = "candle"):
-    mpf.plot(df, type=show_type, style='yahoo', title=f'{ticker_name} {show_type} Chart')
+    if df == 1:
+        mpf.plot(df, type=show_type, style='yahoo', title=f'{ticker_name} {show_type} Chart')
+    else:
+        raise ValueError("cannot have more than ticker to use this function")
     
 if __name__ == "__main__":
     main()

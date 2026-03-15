@@ -31,26 +31,30 @@ public class DiscordBot extends ListenerAdapter{
         if (guild == null){
             throw new IllegalArgumentException("not valid guild: null"); 
         } 
-
         guild.updateCommands().addCommands(
             Commands.slash("echo", "Repeats messages back to you.")
-                .addOption(OptionType.STRING, "message", "The message to repeat.")
-                .addOption(OptionType.INTEGER, "times", "The number of times to repeat the message.")
-                .addOption(OptionType.BOOLEAN, "ephemeral", "Whether or not the message should be sent as an ephemeral message."),
+                .addOption(OptionType.STRING, "message", "The message to repeat."),
         
             Commands.slash("animal", "Finds a random animal")
                 .addOptions(
-                    new OptionData(OptionType.STRING, "type", "The type of animal to find")
-                    .addChoice("Bird", "bird")
+                    new OptionData(OptionType.STRING, "orders", "The type of orders you want to make")
+                    .addChoice("Bird", "pene")
                     .addChoice("Big Cat", "bigcat")
                     .addChoice("Canine", "canine")
-                    .addChoice("Fish", "fish")
-            )).queue();
+                    .addChoice("Fish", "fish")),
+
+            Commands.slash("buy", "Buy shares").addOption(OptionType.STRING, "stock-symbol", "symbol to buy (ex. NVIDIA -->NVDA")
+                .addOption(OptionType.INTEGER, "number-of-shares", "number of shares wanting to buy"),
+            Commands.slash("sell", "Sell shares").addOption(OptionType.STRING, "stock-symbol", "symbol to sell (ex. NVIDIA -->NVDA")
+                .addOption(OptionType.INTEGER, "number-of-shares", "Number of shares wanting to sell"),
+            Commands.slash("portfolio", "Show P&L"),
+            Commands.slash("leaderboard", "Weekly rankings")
+        ).queue();
     }
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("echo")) {
-          event.reply(event.getOption("message").getAsString()).queue(); // reply immediately
+            event.reply(event.getOption("message").getAsString()).queue(); // reply immediately
         }
     }
   

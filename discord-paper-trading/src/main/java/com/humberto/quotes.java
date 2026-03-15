@@ -7,8 +7,8 @@ import java.net.http.HttpResponse;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.type.TypeReference;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.core.type.TypeReference;
 
 
 // quote of the day based on the current market status
@@ -30,20 +30,20 @@ public class quotes {
             System.out.println("API Response: " + response.body());
             // Here you would parse the JSON body to use the data
             String body = response.body();
-            ObjectMapper mapper = new ObjectMapper();
+            //ObjectMapper mapper = new ObjectMapper();
 
             // Parse JSON array into a List of Maps
-            List<Map<String, Object>> list = mapper.readValue(body, new TypeReference<List<Map<String, Object>>>(){});
+            //List<Map<String, Object>> list = mapper.readValue(body, new TypeReference<List<Map<String, Object>>>(){});
 
             // First element of the array
             // this is going to be pass on to discord before any call to keep morale up
             // TO DO: Send to Discord
-            Map<String, Object> first = list.get(0);
+            //Map<String, Object> first = list.get(0);
 
-            Object quote = first.get("quotes");
-            Object something = first.get("something");
-            System.out.print("\n");
-            System.out.printf("%s by %s", quote, something);
+            //Object quote = first.get("quotes");
+            //Object something = first.get("something");
+            //System.out.print("\n");
+            //System.out.printf("%s by %s", quote, something);
 
         } 
         else {
