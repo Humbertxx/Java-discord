@@ -8,7 +8,8 @@ def main():
     data = ticker(tickers)
     
     plot_compare_ticker(data, tickers)
-    
+
+# get the stock, interval, and period of ticker
 def ticker(tickers : str | list, interval : str = "1d", period : str = "1y"):
     if isinstance(tickers, str):
         tickers = [tickers]
@@ -26,8 +27,8 @@ def ticker(tickers : str | list, interval : str = "1d", period : str = "1y"):
         data[ticker] = df
     return data
     
-def plot_compare_ticker(df, ticker_names : list, factor_size=100, volume=False):
-    
+# plotting to see performance of each stock. I can be adjusted also. 
+def plot_compare_ticker(df, ticker_names : list, factor_size=None, volume=False):
     common_index = df[ticker_names[0]].index
     
     for t in ticker_names:
@@ -35,19 +36,18 @@ def plot_compare_ticker(df, ticker_names : list, factor_size=100, volume=False):
     
     base = ticker_names[0]
     base_df = df[base].loc[common_index].copy()
-    base_factor = 100.0 / base_df['Close'].iloc[0]
     
-    if "line":
+    if factor_size:
+        base_factor = factor_size / base_df['Close'].iloc[0]
         base_df['Close'] *= base_factor
 
     addplots = []
     
     for t in ticker_names[1:]:
-        
         df_t = df[t].loc[common_index]
         series = df_t['Close']
         
-        if factor_size is not None:
+        if factor_size:
             factor = factor_size / df_t['Close'].iloc[0]
             series *= factor
        
@@ -62,7 +62,7 @@ def plot_compare_ticker(df, ticker_names : list, factor_size=100, volume=False):
     ax.legend()
     
     mpf.show()
-
+# TO DO: Portfolio logic store in Java
 def plot_portfolio(df, show_type : str = "candle"):
     mpf.plot(df, type=show_type, style='yahoo', title=f' {show_type} Chart')
     
